@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ExamQuest - Practice</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo-area">
+
+            <div class="logo-icon">
+                📖
+            </div>
+
+            <div>
+                <h1>ExamQuest</h1>
+                <p>Practice. Learn. Succeed.</p>
+            </div>
+
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a href="#" id="dashboard-link">Dashboard</a>
+
+            <a href="#" class="active">Practice</a>
+
+            <a href="#">Mock Tests</a>
+
+            <a href="#">Topics</a>
+
+            <a href="#">Bookmarks</a>
+
+            <a href="#">Performance</a>
+
+        </nav>
+
+
+        <div class="nav-icons">
+
+            <button id="theme-btn" title="Toggle Theme">
+                🌙
+            </button>
+
+            <button title="Notifications">
+                🔔
+                <span class="notification-count">3</span>
+            </button>
+
+            <button title="Profile">
+                👤
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN LAYOUT ================= -->
+
+    <div class="page-layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <button class="all-exams-btn">
+                ▦ &nbsp; All Exams
+            </button>
+
+
+            <!-- EXAMS -->
+
+            <div class="sidebar-section">
+
+                <h3>EXAMS</h3>
+
+                <a href="#">🎓 &nbsp; SSC CGL</a>
+
+                <a href="#">🎓 &nbsp; SSC CHSL</a>
+
+                <a href="#">🏦 &nbsp; Banking (IBPS)</a>
+
+                <a href="#">🏛️ &nbsp; UPSC Civil Services</a>
+
+                <a href="#">🚆 &nbsp; RRB NTPC</a>
+
+                <a href="#">🏢 &nbsp; State PSC</a>
+
+                <a href="#">🛡️ &nbsp; Police Exams</a>
+
+                <a href="#">🏅 &nbsp; Defence Exams</a>
+
+            </div>
+
+
+            <!-- TOPICS -->
+
+            <div class="sidebar-section">
+
+                <h3>TOPICS</h3>
+
+                <a href="#">🧮 &nbsp; Quantitative Aptitude</a>
+
+                <a href="#">🧠 &nbsp; Reasoning Ability</a>
+
+                <a href="#">🔤 &nbsp; English Language</a>
+
+                <a href="#">💡 &nbsp; General Awareness</a>
+
+                <a href="#">💻 &nbsp; Computer Knowledge</a>
+
+            </div>
+
+
+            <!-- DAILY CHALLENGE -->
+
+            <div class="daily-challenge">
+
+                <div class="challenge-icon">
+                    🏆
+                </div>
+
+                <h3>Daily Challenge</h3>
+
+                <p>Win exciting rewards!</p>
+
+                <button>
+                    Attempt Now
+                </button>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="main-content" id="main-content">
+
+
+            <!-- ================= PRACTICE AREA ================= -->
+
+            <section class="practice-area" id="practice-area">
+
+
+                <!-- EXAM HEADER -->
+
+                <div class="exam-header">
+
+                    <div>
+
+                        <h2>
+                            SSC CGL 2024 - Quantitative Aptitude
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        class="bookmark-btn"
+                        id="bookmark-btn">
+
+                        🔖 <span id="bookmark-text">
+                            Bookmark
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- QUESTION TOP -->
+
+                <div class="question-top">
+
+                    <div class="question-info">
+
+                        Question
+                        <strong>
+                            <span id="question-number">
+                                1
+                            </span>
+                        </strong>
+
+                        of
+
+                        <strong id="total-questions">
+                            3
+                        </strong>
+
+                    </div>
+
+
+                    <span
+                        class="difficulty"
+                        id="difficulty">
+
+                        Easy
+
+                    </span>
+
+
+                    <div class="timer">
+
+                        ⏱️
+
+                        <span id="timer">
+                            30:00
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- QUESTION -->
+
+                <div class="question-box">
+
+                    <h2 id="question-text">
+                        1. What is 10 + 5?
+                    </h2>
+
+                </div>
+
+
+
+                <!-- OPTIONS -->
+
+                <div
+                    id="options-container"
+                    class="options-container">
+
+                </div>
+
+
+
+                <!-- RESULT -->
+
+                <div
+                    id="result"
+                    class="result-container">
+
+                </div>
+
+
+
+                <!-- BOTTOM BUTTONS -->
+
+                <div class="question-actions">
+
+                    <button
+                        id="previous-btn"
+                        class="secondary-btn">
+
+                        ← Previous
+
+                    </button>
+
+
+                    <button
+                        id="review-btn"
+                        class="review-btn">
+
+                        🔖 Review Later
+
+                    </button>
+
+
+                    <button
+                        id="next-btn"
+                        class="primary-btn">
+
+                        Next →
+
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= FINAL RESULTS ================= -->
+
+            <section
+                id="results-screen"
+                class="results-screen hidden">
+
+                <div class="results-card">
+
+                    <div class="trophy">
+                        🏆
+                    </div>
+
+
+                    <h1>
+                        Exam Completed!
+                    </h1>
+
+
+                    <p class="results-subtitle">
+                        Great job! Here is your final performance.
+                    </p>
+
+
+                    <!-- SCORE -->
+
+                    <div class="score-circle">
+
+                        <strong id="final-percentage">
+                            0%
+                        </strong>
+
+                        <span>
+                            Your Score
+                        </span>
+
+                    </div>
+
+
+                    <!-- STATISTICS -->
+
+                    <div class="result-stats">
+
+
+                        <div class="stat-card">
+
+                            <strong id="final-total">
+                                0
+                            </strong>
+
+                            <span>
+                                Total Questions
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card correct-stat">
+
+                            <strong id="final-correct">
+                                0
+                            </strong>
+
+                            <span>
+                                Correct
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card incorrect-stat">
+
+                            <strong id="final-incorrect">
+                                0
+                            </strong>
+
+                            <span>
+                                Incorrect
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat-card unanswered-stat">
+
+                            <strong id="final-unanswered">
+                                0
+                            </strong>
+
+                            <span>
+                                Unanswered
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- RESULT BUTTONS -->
+
+                    <div class="result-buttons">
+
+                        <button
+                            id="restart-btn"
+                            class="primary-btn">
+
+                            🔄 Restart Exam
+
+                        </button>
+
+
+                        <button
+                            id="dashboard-btn"
+                            class="secondary-btn">
+
+                            🏠 Back to Dashboard
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+        </main>
+
+
+
+        <!-- ================= RIGHT SIDEBAR ================= -->
+
+        <aside class="right-sidebar">
+
+
+            <!-- PROGRESS -->
+
+            <div class="right-card">
+
+                <h2>
+                    Your Progress
+                </h2>
+
+
+                <div class="progress-circle">
+
+                    <div>
+
+                        <strong id="progress-percentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <p class="progress-text">
+
+                    <span id="answered-count">
+                        0
+                    </span>
+
+                    of
+
+                    <span id="progress-total">
+                        3
+                    </span>
+
+                    Questions
+
+                </p>
+
+
+                <div class="progress-stats">
+
+                    <div>
+
+                        <strong
+                            id="correct-count"
+                            class="green">
+                            0
+                        </strong>
+
+                        <span>
+                            Correct
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong
+                            id="incorrect-count"
+                            class="red">
+                            0
+                        </strong>
+
+                        <span>
+                            Incorrect
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong
+                            id="unanswered-count"
+                            class="orange">
+                            3
+                        </strong>
+
+                        <span>
+                            Unanswered
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUESTION NAVIGATOR -->
+
+            <div class="right-card">
+
+                <h2>
+                    Question Navigator
+                </h2>
+
+
+                <div class="legend">
+
+                    <span>
+                        <i class="green-dot"></i>
+                        Answered
+                    </span>
+
+                    <span>
+                        <i class="red-dot"></i>
+                        Incorrect
+                    </span>
+
+                    <span>
+                        <i class="gray-dot"></i>
+                        Unanswered
+                    </span>
+
+                    <span>
+                        <i class="orange-dot"></i>
+                        Review Later
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="question-navigator"
+                    class="question-navigator">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXAM TIP -->
+
+            <div class="exam-tip">
+
+                <h3>
+                    💡 Exam Tip
+                </h3>
+
+                <p>
+                    Manage your time effectively.
+                    Don't spend too much time on a
+                    single question.
+                </p>
+
+            </div>
+
+
+        </aside>
+
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
