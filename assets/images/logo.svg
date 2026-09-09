@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="36" height="36" fill="none">
+  <defs>
+    <linearGradient id="bookGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c6afc" />
+      <stop offset="100%" stop-color="#5542f6" />
+    </linearGradient>
+    <linearGradient id="bookGradRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5542f6" />
+      <stop offset="100%" stop-color="#3b28db" />
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#5542f6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <!-- Left Page -->
+  <path d="M22 10C16 8 8 9 5 11V37C8 35 16 34 22 36.5V10Z" fill="url(#bookGradLeft)" filter="url(#subtleShadow)" />
+  <!-- Right Page -->
+  <path d="M26 10C32 8 40 9 43 11V37C40 35 32 34 26 36.5V10Z" fill="url(#bookGradRight)" filter="url(#subtleShadow)" />
+  <!-- Book Spine Center Fold -->
+  <path d="M22 10C23.3 11.2 24.7 11.2 26 10V36.5C24.7 37.7 23.3 37.7 22 36.5V10Z" fill="#4330e0" />
+  <!-- Page Line Accents -->
+  <line x1="9" y1="18" x2="18" y2="17" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="9" y1="24" x2="18" y2="23" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="9" y1="30" x2="16" y2="29.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="30" y1="17" x2="39" y2="18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="30" y1="23" x2="39" y2="24" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="32" y1="29.5" x2="39" y2="30" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+</svg>

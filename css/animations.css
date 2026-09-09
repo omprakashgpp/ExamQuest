@@ -1,0 +1,85 @@
+/* ==========================================================================
+   ExamQuest Animations & Micro-Interactions
+   Professional, subtle, and smooth transitions
+   ========================================================================== */
+
+/* Fade in for feedback & explanations */
+@keyframes eqFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: eqFadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Option selection subtle pop */
+@keyframes eqOptionPop {
+  0% {
+    transform: scale(0.99);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.eq-option-card.correct,
+.eq-option-card.incorrect {
+  animation: eqOptionPop 0.25s ease-out forwards;
+}
+
+/* Subtle pulse for correct answer checkmark */
+@keyframes eqCheckBounce {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.eq-option-status-icon {
+  animation: eqCheckBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Badge pulse for notifications */
+@keyframes eqPulseBadge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.eq-badge-count {
+  animation: eqPulseBadge 2.5s infinite ease-in-out;
+}
+
+/* Circular progress bar fill animation */
+.eq-circle-bar {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Progress bar shimmer effect */
+@keyframes eqShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Question transitions */
+.eq-question-transition {
+  animation: eqFadeInUp 0.22s ease-out;
+}

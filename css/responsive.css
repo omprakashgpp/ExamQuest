@@ -1,0 +1,248 @@
+/* ==========================================================================
+   ExamQuest Responsive Layout Rules
+   Breakpoints for Desktop, Tablet, and Mobile
+   ========================================================================== */
+
+/* Large screens and desktop (> 1200px) */
+@media (min-width: 1200px) {
+  .eq-grid-layout {
+    grid-template-columns: 230px 1fr 315px;
+  }
+}
+
+/* Medium desktops and small laptops (992px to 1199px) */
+@media (max-width: 1199.98px) {
+  .eq-grid-layout {
+    grid-template-columns: 210px 1fr 280px;
+    gap: 1rem;
+  }
+
+  .eq-main-wrapper {
+    padding: 1rem;
+  }
+
+  .eq-nav-links {
+    gap: 1.1rem;
+  }
+  
+  .eq-nav-link {
+    font-size: 0.875rem;
+  }
+}
+
+/* Tablets (768px to 991.98px) */
+@media (max-width: 991.98px) {
+  .eq-grid-layout {
+    grid-template-columns: 1fr 300px;
+  }
+
+  /* Left sidebar transforms into an offcanvas / collapsible sidebar */
+  .eq-sidebar-left {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 270px;
+    height: 100vh;
+    background: var(--card-bg);
+    z-index: 1050;
+    padding: 1.5rem 1rem;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    transition: left 0.3s ease;
+  }
+
+  .eq-sidebar-left.show-drawer {
+    left: 0;
+  }
+
+  /* Backdrop for open drawer */
+  .eq-sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 1040;
+  }
+
+  .eq-sidebar-backdrop.active {
+    display: block;
+  }
+
+  .eq-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .eq-nav-links {
+    display: none; /* Collapses into mobile dropdown or drawer */
+  }
+
+  .eq-nav-links.show-mobile {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--card-border);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    gap: 0.75rem;
+  }
+
+  .eq-nav-item {
+    height: auto;
+  }
+
+  .eq-nav-item.active::after {
+    display: none;
+  }
+
+  .eq-nav-item.active .eq-nav-link {
+    background: var(--primary-light);
+    border-radius: var(--border-radius-sm);
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 767.98px) {
+  .eq-main-wrapper {
+    padding: 0.75rem 0.75rem 4rem;
+    overflow-x: hidden;
+  }
+
+  /* Single-column stacked layout */
+  .eq-grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .eq-main-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .eq-qheader-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .eq-qheader-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .eq-qmeta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .eq-qmeta-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .eq-question-title {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .eq-option-card {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .eq-option-left {
+    font-size: 0.875rem;
+    gap: 8px;
+  }
+
+  /* Bottom action buttons on mobile */
+  .eq-bottom-nav {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn-nav-prev,
+  .btn-nav-review,
+  .btn-nav-next {
+    flex: 1 1 30%;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.8125rem;
+    justify-content: center;
+  }
+
+  .eq-nav-grid {
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+  }
+
+  .eq-nav-btn {
+    font-size: 0.625rem;
+  }
+
+  .eq-sidebar-right {
+    width: 100%;
+  }
+
+  .eq-brand-name {
+    font-size: 1.1rem;
+  }
+
+  .eq-brand-tagline {
+    display: none;
+  }
+
+  .eq-nav-actions {
+    gap: 6px;
+  }
+
+  .eq-icon-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .eq-user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  #fullscreenToggleBtn {
+    display: none;
+  }
+
+  .eq-circle-chart {
+    width: 100px;
+    height: 100px;
+  }
+
+  .eq-circle-text {
+    font-size: 1.15rem;
+  }
+
+  .eq-fullscreen-btn {
+    bottom: 12px;
+    right: 12px;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+}
+
+/* Extra small devices (< 480px) */
+@media (max-width: 479.98px) {
+  .btn-nav-prev,
+  .btn-nav-review,
+  .btn-nav-next {
+    flex: 1 1 100%;
+  }
+}

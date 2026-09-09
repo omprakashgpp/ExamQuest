@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ExamQuest Automated QA Test Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; padding: 2rem; background: #f8f9fc; }
+    .test-pass { color: #16a34a; font-weight: 600; }
+    .test-fail { color: #dc2626; font-weight: 700; }
+    .test-log { background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; padding: 1.5rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>ExamQuest Automated Test Suite</h2>
+  <div id="testSummary" class="fs-5 mb-3">Running tests...</div>
+  <div class="test-log" id="testLog"></div>
+
+  <!-- Hidden Sandbox DOM elements matching practice.html -->
+  <div id="sandbox" style="position: absolute; left: -9999px; top: -9999px;">
+    <h2 id="examHeaderTitle"></h2>
+    <span id="currentQNum"></span>
+    <span id="totalQNum"></span>
+    <span id="difficultyBadge"></span>
+    <span id="timerText"></span>
+    <div id="qProgressBar"></div>
+    <div id="questionTitle"></div>
+    <div id="optionsContainer"></div>
+    <div id="feedbackContainer"></div>
+    <div id="explanationContainer"></div>
+    <button id="btnPrev"></button>
+    <button id="btnNext"></button>
+    <button id="btnBookmark"></button>
+    <button id="btnReviewLater"></button>
+    <button id="btnReport"></button>
+    <div id="questionNavigatorGrid"></div>
+    <select id="jumpSelect"></select>
+    <span id="progressPercentText"></span>
+    <span id="progressCountText"></span>
+    <span id="statCorrectCount"></span>
+    <span id="statIncorrectCount"></span>
+    <span id="statSkippedCount"></span>
+    <circle id="circleProgressBar"></circle>
+    <button id="themeToggleBtn"><i></i></button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/practice.js"></script>
+
+  <script>
+    const logElem = document.getElementById('testLog');
+    const summaryElem = document.getElementById('testSummary');
+    let passCount = 0;
+    let failCount = 0;
+
+    function assert(name, condition, extra = "") {
+      const p = document.createElement('div');
+      p.className = 'py-1 border-bottom d-flex justify-content-between';
+      if (condition) {
+        passCount++;
+        p.innerHTML = `<span>✔ ${name}</span> <span class="test-pass">PASS</span>`;
+        console.log(`[PASS] ${name}`);
+      } else {
+        failCount++;
+        p.innerHTML = `<span>✖ ${name} <small class="text-danger">${extra}</small></span> <span class="test-fail">FAIL</span>`;
+        console.error(`[FAIL] ${name}: ${extra}`);
+      }
+      logElem.appendChild(p);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        // Test 1: Data API Integrity
+        const allQ = ExamQuestData.getAllQuestions();
+        assert("Total questions generated is 100", allQ.length === 100);
+
+        // Test 2: Question 12 Mathematical Correctness
+        const q12 = ExamQuestData.getQuestionById(12);
+        assert("Question 12 exists", !!q12);
+        assert("Question 12 correct answer index is 1 (Option B)", q12.correctAnswer === 1);
+        assert("Question 12 Option B text is 74", q12.options[1] === "74");
+        
+        // Evaluate mathematical expression independently: (15 + 25) * 2 - 30 / 5
+        const independentCalc = (15 + 25) * 2 - (30 / 5);
+        assert("Independent BODMAS calculation equals 74", independentCalc === 74);
+        assert("Option B matches independent calculation", parseInt(q12.options[q12.correctAnswer], 10) === independentCalc);
+
+        // Test 3: Curated Questions Math & Logic Check
+        let allCuratedMathValid = true;
+        curatedQuestions.forEach(q => {
+          if (!q.options || q.options.length !== 4) allCuratedMathValid = false;
+          if (q.correctAnswer < 0 || q.correctAnswer > 3) allCuratedMathValid = false;
+        });
+        assert("All 25 curated questions have valid 4 options and correct answer index", allCuratedMathValid);
+
+        // Test 4: Timer Engine
+        const testTimer = new ExamTimer(60);
+        assert("Timer initial seconds", testTimer.getSeconds() === 60);
+        assert("Timer format helper 60s -> 00:01:00", testTimer.getFormattedTime() === "00:01:00");
+        testTimer.setSeconds(18 * 60 + 35);
+        assert("Timer format helper 1115s -> 00:18:35", testTimer.getFormattedTime() === "00:18:35");
+
+        // Test 5: Question Rendering in Practice Sandbox
+        loadQuestion(12);
+        const qTitle = document.getElementById('questionTitle').textContent;
+        assert("Question 12 title rendered", qTitle.includes("What is the value of (15 + 25) × 2 − 30 ÷ 5?"));
+        
+        const optionCards = document.querySelectorAll('#optionsContainer .eq-option-card');
+        assert("4 option cards rendered", optionCards.length === 4);
+
+        // Test 6: Selecting Correct Option (Option B: index 1)
+        selectOption(q12, 1);
+        const optBCard = document.querySelectorAll('#optionsContainer .eq-option-card')[1];
+        assert("Option B has 'correct' class after selection", optBCard.classList.contains('correct'));
+
+        const feedbackCard = document.querySelector('#feedbackContainer .eq-feedback-card');
+        assert("Instant feedback displayed", !!feedbackCard && feedbackCard.classList.contains('correct'));
+        assert("Feedback text has 'Correct! Well done'", feedbackCard.textContent.includes("Correct! Well done"));
+
+        const explanationCard = document.querySelector('#explanationContainer .eq-explanation-card');
+        assert("Explanation displayed", !!explanationCard);
+        assert("Explanation contains step-by-step BODMAS", explanationCard.textContent.includes("BODMAS"));
+
+        // Test 7: Selecting Incorrect Option on Another Question (e.g. Question 1)
+        const q1 = ExamQuestData.getQuestionById(1);
+        loadQuestion(1);
+        selectOption(q1, 3); // incorrect (correct is 0)
+        const optIncorrect = document.querySelectorAll('#optionsContainer .eq-option-card')[3];
+        assert("Incorrect option has 'incorrect' class", optIncorrect.classList.contains('incorrect'));
+        const fbIncorrect = document.querySelector('#feedbackContainer .eq-feedback-card');
+        assert("Incorrect feedback displayed", !!fbIncorrect && fbIncorrect.classList.contains('incorrect'));
+
+        // Test 8: Navigation Controls (Prev / Next)
+        loadQuestion(1);
+        const btnPrev = document.getElementById('btnPrev');
+        assert("Previous button is disabled on Question 1", btnPrev.disabled === true);
+
+        loadQuestion(2);
+        assert("Previous button is enabled on Question 2", btnPrev.disabled === false);
+
+        // Test 9: Bookmark Toggle and Persistence
+        toggleBookmark(12);
+        let bMarks = ExamQuestData.getBookmarks();
+        assert("Bookmark added to storage", bMarks.includes(12));
+        toggleBookmark(12);
+        bMarks = ExamQuestData.getBookmarks();
+        assert("Bookmark removed from storage on second toggle", !bMarks.includes(12));
+
+        // Test 10: Review Later Toggle and Navigator State
+        toggleReviewLater(14);
+        assert("Review later recorded in session state", sessionState.reviewLater.includes(14));
+        const navBtn14 = document.getElementById('navBtn_14');
+        assert("Navigator button 14 has 'review' class", navBtn14 && navBtn14.classList.contains('review'));
+        toggleReviewLater(14);
+        assert("Review later removed on second toggle", !sessionState.reviewLater.includes(14));
+
+        // Test 11: Jump to Question Dropdown
+        const jumpSelect = document.getElementById('jumpSelect');
+        assert("Jump dropdown has 100 options", jumpSelect.options.length === 101); // 1 placeholder + 100
+
+        // Test 12: Dark Mode Toggle
+        applyTheme('dark');
+        assert("Dark mode attribute applied", document.documentElement.getAttribute('data-theme') === 'dark');
+        applyTheme('light');
+        assert("Light mode applied", document.documentElement.getAttribute('data-theme') === null);
+
+        // Test 13: Keyboard Shortcuts simulation
+        loadQuestion(12);
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: '2' }));
+        const optBKey = document.querySelectorAll('#optionsContainer .eq-option-card')[1];
+        assert("Key '2' selects Option B", optBKey.classList.contains('correct'));
+
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' }));
+        assert("Key 'B' toggles bookmark", ExamQuestData.getBookmarks().includes(12));
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'b' })); // undo
+
+        // Final Summary
+        summaryElem.innerHTML = `<strong>Total Tests: ${passCount + failCount}</strong> | <span class="test-pass">Passed: ${passCount}</span> | <span class="test-fail">Failed: ${failCount}</span>`;
+        if (failCount === 0) {
+          summaryElem.className = 'alert alert-success fs-5';
+        } else {
+          summaryElem.className = 'alert alert-danger fs-5';
+        }
+
+      } catch (err) {
+        console.error("Test execution exception:", err);
+        assert("Test runner executed without exception", false, err.message);
+      }
+    });
+  </script>
+</body>
+</html>

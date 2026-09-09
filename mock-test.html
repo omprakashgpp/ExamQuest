@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSC CGL Full Mock Test – ExamQuest</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    /* Full mock exam mode specific header */
+    .mock-header {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full Exam Simulation Header -->
+  <header class="mock-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <a href="index.html" class="eq-brand">
+        <div class="eq-brand-icon"><img src="assets/images/logo.svg" alt="ExamQuest"></div>
+        <div class="eq-brand-text">
+          <span class="eq-brand-name">ExamQuest</span>
+          <span class="eq-brand-tagline">Mock Exam Simulation</span>
+        </div>
+      </a>
+      <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill d-none d-md-inline-block">
+        SSC CGL Tier 1 Mock Test 04
+      </span>
+    </div>
+
+    <!-- Timer & Submit Action -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2 bg-light border px-3 py-1 rounded-3">
+        <i class="fa-regular fa-clock text-danger fs-6"></i>
+        <span class="fw-bold text-danger font-monospace fs-6" id="timerText">00:18:35</span>
+      </div>
+
+      <button class="btn btn-outline-secondary btn-sm" id="fullscreenToggleBtn" title="Toggle Fullscreen">
+        <i class="fa-solid fa-expand"></i>
+      </button>
+
+      <button class="btn btn-danger btn-sm fw-semibold px-3" data-bs-toggle="modal" data-bs-target="#submitConfirmModal">
+        <i class="fa-solid fa-paper-plane me-1"></i> Submit Test
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Question & Navigator Interface -->
+  <main class="eq-main-wrapper">
+    <div class="eq-grid-layout">
+      <!-- Left Subjects Filter in Mock -->
+      <aside class="eq-sidebar-left">
+        <div class="eq-sidebar-section">
+          <span class="eq-section-title">SECTIONS</span>
+          <button class="btn btn-primary text-start w-100 mb-2 py-2 px-3 fw-semibold rounded-3">
+            <i class="fa-solid fa-calculator me-2"></i> Quantitative Aptitude
+          </button>
+          <button class="btn btn-light border text-start w-100 mb-2 py-2 px-3 rounded-3 text-muted">
+            <i class="fa-solid fa-cubes me-2"></i> Reasoning Ability
+          </button>
+          <button class="btn btn-light border text-start w-100 mb-2 py-2 px-3 rounded-3 text-muted">
+            <i class="fa-solid fa-book-open me-2"></i> English Comprehension
+          </button>
+          <button class="btn btn-light border text-start w-100 mb-2 py-2 px-3 rounded-3 text-muted">
+            <i class="fa-solid fa-compass me-2"></i> General Studies
+          </button>
+        </div>
+
+        <div class="card border p-3 rounded-3 mt-auto bg-light">
+          <div class="small fw-bold mb-1 text-dark">Marking Scheme</div>
+          <div class="small text-muted mb-1">+2.00 Marks for Correct</div>
+          <div class="small text-muted">-0.50 Negative Marking</div>
+        </div>
+      </aside>
+
+      <!-- Center Question Area -->
+      <section class="eq-question-area">
+        <div class="eq-main-card" id="mainQuestionCard">
+          
+          <div class="eq-qheader-top">
+            <h2 class="eq-exam-title" id="examHeaderTitle">
+              SSC CGL 2024 – Quantitative Aptitude
+            </h2>
+            <div class="eq-qheader-actions">
+              <button class="btn-bookmark" id="btnBookmark">
+                <i class="fa-regular fa-bookmark"></i> <span>Bookmark</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="eq-qmeta-bar">
+            <div class="eq-qcount">
+              Question <strong id="currentQNum">12</strong> of <span id="totalQNum">100</span>
+            </div>
+            <div class="eq-qmeta-right">
+              <span class="eq-difficulty-badge" id="difficultyBadge">Easy</span>
+              <button class="btn-report" id="btnReport">
+                <i class="fa-regular fa-flag"></i> Report
+              </button>
+            </div>
+          </div>
+
+          <div class="eq-qprogress-track">
+            <div class="eq-qprogress-fill" id="qProgressBar" style="width: 12%;"></div>
+          </div>
+
+          <h3 class="eq-question-title" id="questionTitle">
+            12. What is the value of (15 + 25) × 2 − 30 ÷ 5?
+          </h3>
+
+          <div class="eq-options-list" id="optionsContainer"></div>
+          <div id="feedbackContainer"></div>
+          <div id="explanationContainer"></div>
+
+          <div class="eq-bottom-nav">
+            <button class="btn-nav-prev" id="btnPrev">
+              <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn-nav-review" id="btnReviewLater">
+              <i class="fa-regular fa-bookmark"></i> Review Later
+            </button>
+            <button class="btn-nav-next" id="btnNext">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Navigator -->
+      <aside class="eq-sidebar-right">
+        <div class="eq-progress-card">
+          <h4 class="eq-panel-title">Test Progress</h4>
+          <div class="eq-circle-progress-wrapper">
+            <div class="eq-circle-chart">
+              <svg class="eq-circle-svg" viewBox="0 0 100 100">
+                <circle class="eq-circle-bg" cx="50" cy="50" r="46"></circle>
+                <circle class="eq-circle-bar" id="circleProgressBar" cx="50" cy="50" r="46"
+                        stroke-dasharray="289.026" stroke-dashoffset="254.34"></circle>
+              </svg>
+              <div class="eq-circle-text" id="progressPercentText">12%</div>
+            </div>
+            <span class="eq-circle-label" id="progressCountText">12 of 100 Questions</span>
+          </div>
+          <div class="eq-stats-row">
+            <div class="eq-stat-item">
+              <div class="eq-stat-icon correct"><i class="fa-solid fa-check"></i></div>
+              <div class="eq-stat-text"><span class="eq-stat-number" id="statCorrectCount">10</span><span class="eq-stat-label">Correct</span></div>
+            </div>
+            <div class="eq-stat-item">
+              <div class="eq-stat-icon incorrect"><i class="fa-solid fa-xmark"></i></div>
+              <div class="eq-stat-text"><span class="eq-stat-number" id="statIncorrectCount">2</span><span class="eq-stat-label">Incorrect</span></div>
+            </div>
+            <div class="eq-stat-item">
+              <div class="eq-stat-icon skipped"><i class="fa-solid fa-minus"></i></div>
+              <div class="eq-stat-text"><span class="eq-stat-number" id="statSkippedCount">0</span><span class="eq-stat-label">Skipped</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="eq-navigator-card">
+          <h4 class="eq-panel-title">Question Navigator</h4>
+          <div class="eq-legend-row">
+            <div class="eq-legend-item"><span class="eq-dot answered"></span><span>Answered</span></div>
+            <div class="eq-legend-item"><span class="eq-dot incorrect"></span><span>Incorrect</span></div>
+            <div class="eq-legend-item"><span class="eq-dot unanswered"></span><span>Unanswered</span></div>
+            <div class="eq-legend-item"><span class="eq-dot review"></span><span>Review Later</span></div>
+          </div>
+          <div class="eq-nav-grid" id="questionNavigatorGrid"></div>
+          <div class="eq-palette-section">
+            <p class="eq-palette-subtitle">Click on any question number to navigate</p>
+            <select class="eq-jump-select" id="jumpSelect" aria-label="Jump to Question"></select>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Submit Confirmation Modal -->
+  <div class="modal fade" id="submitConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold text-dark">Submit Examination?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body py-4 text-center">
+          <i class="fa-solid fa-circle-question text-warning fs-1 mb-3"></i>
+          <p class="text-muted">Are you sure you want to finish and submit your mock examination?</p>
+          <div class="p-3 bg-light rounded-3 text-start mb-2">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Answered:</span>
+              <span class="fw-bold text-success">12</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Review Later:</span>
+              <span class="fw-bold text-warning">0</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Unanswered:</span>
+              <span class="fw-bold text-secondary">88</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel &amp; Continue</button>
+          <a href="result.html" class="btn btn-primary px-4 fw-semibold">Yes, Submit Test</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/practice.js"></script>
+</body>
+</html>
